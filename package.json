@@ -5,7 +5,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "build": "yarn workspace example build"
+    "build": "yarn workspace app build"
   },
   "husky": {
     "hooks": {
@@ -14,7 +14,7 @@
   },
   "workspaces": [
     "gatsby-theme-wedding",
-    "example"
+    "app"
   ],
   "devDependencies": {
     "husky": "^3.0.9",
@@ -23,6 +23,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/agneym/gatsby-wedding-theme"
+    "url": "https://github.com/nitoygo/gatsby-wedding-theme"
   }
 }
