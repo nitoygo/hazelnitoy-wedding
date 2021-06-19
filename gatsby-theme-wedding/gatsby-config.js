@@ -1,8 +1,8 @@
 module.exports = ({ contentPath = "data" }) => ({
   siteMetadata: {
-    title: "Samantha & Nathaniel",
-    description: "Something",
-    author: "Agney Menon"
+    title: "Hazel & Nitoy",
+    description: "Hazel & Nitoy Wedding Invitation",
+    author: "Hazel & Nitoy"
   },
   plugins: [
     {

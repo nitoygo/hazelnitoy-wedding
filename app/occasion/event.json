@@ -24,7 +24,7 @@
         "name": "Wedding Ceremony",
         "place": {
           "name": "San Antonio de Padua",
-          "map": "https://www.google.com/maps/place/San+Antonio+de+Padua+Parish+Church/@14.1917212,120.9926357,15z/data=!4m5!3m4!1s0x0:0xa4a9b11e95646896!8m2!3d14.1916929!4d120.9926429"
+          "map": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3868.0521966164356!2d120.99044701439107!3d14.191721190063896!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33bd7c0265859361%3A0xa4a9b11e95646896!2sSan%20Antonio%20de%20Padua%20Parish%20Church!5e0!3m2!1sen!2sph!4v1624120012385!5m2!1sen!2sph"
         },
         "time": "01:30PM"
       },
@@ -39,9 +39,9 @@
         "name": "Reception",
         "place": {
           "name": "Alta Veranda de Tibig",
-          "map": "https://www.google.com/maps/place/Alta+Veranda+De+Tibig/@14.2294845,121.0054833,17z/data=!3m1!4b1!4m5!3m4!1s0x33bd7c36807252db:0x6924f5eae4afeada!8m2!3d14.2294845!4d121.007672"
+          "map": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3867.4066486296683!2d121.00548331483589!3d14.229484490039697!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33bd7c36807252db%3A0x6924f5eae4afeada!2sAlta%20Veranda%20De%20Tibig!5e0!3m2!1sen!2sph!4v1624119949944!5m2!1sen!2sph"
         },
-        "time": "04:00PM - 09:00PM"
+        "time": "04:00PM - 09:30PM"
       },
       "calendar": {
         "google": "https://calendar.google.com/calendar/render?action=TEMPLATE&dates=20191110T133519Z%2F20191110T133519Z&details=&location=Casa%20Garden%2C%20Sacremento&text=Nathaniel%20%26%20Samantha%20Wedding&trp=false",
