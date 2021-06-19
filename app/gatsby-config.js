@@ -4,7 +4,7 @@ module.exports = {
       resolve: `@agney/gatsby-theme-wedding`,
       options: {
         contentPath: "occasion",
-        basePath: "/event"
+        basePath: "/wedding"
       }
     }
   ]
