@@ -5,7 +5,7 @@ import logoImg from "../images/icon.png";
 
 const StyledFooter = styled.footer`
   height: ${props => props.theme.footer.height};
-  background-color: #2a2a2a;
+  background-color: #ffffff;
   margin-top: 0.5rem;
   position: fixed;
   bottom: 0;
@@ -24,7 +24,7 @@ function Footer() {
   return (
     <StyledFooter>
       <Content>
-        <img src={logoImg} alt="" />
+        <img src={logoImg} alt="" height="75%" />
       </Content>
     </StyledFooter>
   );
