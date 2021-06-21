@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import cover from "../images/cover.jpg";
+import cover from "../images/cover.webp";
 import CoverText from "./CoverText";
 import media from "./media";
 

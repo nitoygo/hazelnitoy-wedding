@@ -5,8 +5,8 @@ import { useStaticQuery, graphql } from "gatsby";
 import ProfileCard from "./ProfileCard";
 import media from "./media";
 import flowersImg from "../images/flowers.gif";
-import brideImg from "../images/bride.jpg";
-import groomImg from "../images/groom.jpg";
+import brideImg from "../images/bride.webp";
+import groomImg from "../images/groom.webp";
 
 const Container = styled.section`
   padding: 6rem 2rem;

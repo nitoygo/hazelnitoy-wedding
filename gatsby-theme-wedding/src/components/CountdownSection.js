@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Countdown from "react-countdown-now";
 import { graphql, useStaticQuery } from "gatsby";
 
-import backgroundImg from "../images/background.jpg";
+import backgroundImg from "../images/background.webp";
 import CountItem from "./CountItem";
 import animationParams from "./animation-params";
 import media from "./media";
