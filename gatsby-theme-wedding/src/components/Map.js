@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Element } from "react-scroll";
 
 import DateList from "./DateList";
 import media from "./media";
@@ -53,30 +54,34 @@ const QUERY = graphql`
   }
 `;
 
-function Map() {
+const Map = () => {
   const {
     event: { events }
   } = useStaticQuery(QUERY);
   return (
-    <Container>
-      <MapContainer>
-        <GoogleMap
-          src={events[0].occasion.place.map}
-          frameBorder="0"
-          allowfullscreen=""
-        ></GoogleMap>
-        <GoogleMap
-          src={events[1].occasion.place.map}
-          frameBorder="0"
-          allowfullscreen=""
-        ></GoogleMap>
-      </MapContainer>
-      <TextContainer>
-        <Heading {...animationParams}>When & Where</Heading>
-        <DateList />
-      </TextContainer>
-    </Container>
+    <div>
+      <Element id="Map">
+        <Container>
+          <MapContainer>
+            <GoogleMap
+              src={events[0].occasion.place.map}
+              frameBorder="0"
+              allowfullscreen=""
+            ></GoogleMap>
+            <GoogleMap
+              src={events[1].occasion.place.map}
+              frameBorder="0"
+              allowfullscreen=""
+            ></GoogleMap>
+          </MapContainer>
+          <TextContainer>
+            <Heading {...animationParams}>When & Where</Heading>
+            <DateList />
+          </TextContainer>
+        </Container>
+      </Element>
+    </div>
   );
-}
+};
 
 export default Map;

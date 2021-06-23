@@ -8,6 +8,8 @@ import Map from "../components/Map";
 import CountdownSection from "../components/CountdownSection";
 import Profile from "../components/Profile";
 
+import Navigation from "../components/Navigation";
+
 const Landing = () => {
   useEffect(() => {
     sal();
@@ -15,6 +17,7 @@ const Landing = () => {
   return (
     <Fragment>
       <SEO />
+      <Navigation />
       <Layout>
         <Cover />
         <Profile />

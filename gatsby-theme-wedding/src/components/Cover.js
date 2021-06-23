@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Element } from "react-scroll";
 
 import cover from "../images/cover.webp";
 import CoverText from "./CoverText";
@@ -58,17 +59,21 @@ const Image = styled.img`
   width: 100%;
 `;
 
-function Cover() {
+const Cover = () => {
   return (
-    <Container>
-      <TextContainer>
-        <CoverText />
-      </TextContainer>
-      <ImageContainer>
-        <Image src={cover} alt="" />
-      </ImageContainer>
-    </Container>
+    <div>
+      <Element id="Cover">
+        <Container>
+          <TextContainer>
+            <CoverText />
+          </TextContainer>
+          <ImageContainer>
+            <Image src={cover} alt="" />
+          </ImageContainer>
+        </Container>
+      </Element>
+    </div>
   );
-}
+};
 
 export default Cover;

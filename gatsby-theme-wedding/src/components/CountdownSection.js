@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Countdown from "react-countdown-now";
 import { graphql, useStaticQuery } from "gatsby";
+import { Element } from "react-scroll";
 
 import backgroundImg from "../images/background.webp";
 import CountItem from "./CountItem";
@@ -54,36 +55,40 @@ const QUERY = graphql`
   }
 `;
 
-function CountdownSection() {
+const CountdownSection = () => {
   const {
     event: { events }
   } = useStaticQuery(QUERY);
   return (
-    <Container>
-      <TitleContainer>
-        <Title {...animationParams}>Save the Date</Title>
-        <Subtitle {...animationParams} data-sal-delay="600">
-          Join us in Celebration
-        </Subtitle>
-      </TitleContainer>
-      <Countdown
-        date={new Date(events[0].title)}
-        renderer={({ days, hours, minutes, seconds, completed }) => {
-          if (completed) {
-            return <p>Done.</p>;
-          }
-          return (
-            <CountContainer>
-              <CountItem title="Days" count={days} />
-              <CountItem title="Hours" count={hours} />
-              <CountItem title="Minutes" count={minutes} />
-              <CountItem title="Seconds" count={seconds} />
-            </CountContainer>
-          );
-        }}
-      />
-    </Container>
+    <div>
+      <Element id="CountdownSection">
+        <Container>
+          <TitleContainer>
+            <Title {...animationParams}>Save the Date</Title>
+            <Subtitle {...animationParams} data-sal-delay="600">
+              Join us in Celebration
+            </Subtitle>
+          </TitleContainer>
+          <Countdown
+            date={new Date(events[0].title)}
+            renderer={({ days, hours, minutes, seconds, completed }) => {
+              if (completed) {
+                return <p>Done.</p>;
+              }
+              return (
+                <CountContainer>
+                  <CountItem title="Days" count={days} />
+                  <CountItem title="Hours" count={hours} />
+                  <CountItem title="Minutes" count={minutes} />
+                  <CountItem title="Seconds" count={seconds} />
+                </CountContainer>
+              );
+            }}
+          />
+        </Container>
+      </Element>
+    </div>
   );
-}
+};
 
 export default CountdownSection;

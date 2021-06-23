@@ -17,13 +17,15 @@ const Main = styled.main`
 
 const Layout = ({ children }) => {
   return (
-    <ThemeProvider theme={theme}>
-      <div>
-        <Main css={``}>{children}</Main>
-        <Footer />
-        <GlobalStyles />
-      </div>
-    </ThemeProvider>
+    <div>
+      <ThemeProvider theme={theme}>
+        <div>
+          <Main css={``}>{children}</Main>
+          <Footer />
+          <GlobalStyles />
+        </div>
+      </ThemeProvider>
+    </div>
   );
 };
 

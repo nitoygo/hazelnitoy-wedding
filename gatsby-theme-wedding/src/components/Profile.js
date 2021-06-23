@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useStaticQuery, graphql } from "gatsby";
+import { Element } from "react-scroll";
 
 import ProfileCard from "./ProfileCard";
 import media from "./media";
@@ -53,24 +54,28 @@ const QUERY = graphql`
   }
 `;
 
-function Profile() {
+const Profile = () => {
   const {
     event: { profiles }
   } = useStaticQuery(QUERY);
   return (
-    <Container>
-      <TitleContainer>
-        <Image src={flowersImg} alt="flowers" />
-        <Title data-sal="slide-up" data-sal-delay="200">
-          Bride & Groom
-        </Title>
-      </TitleContainer>
-      <CardContainer>
-        <ProfileCard image={brideImg} {...profiles[0]} />
-        <ProfileCard image={groomImg} {...profiles[1]} />
-      </CardContainer>
-    </Container>
+    <div>
+      <Element id="Profile">
+        <Container>
+          <TitleContainer>
+            <Image src={flowersImg} alt="flowers" />
+            <Title data-sal="slide-up" data-sal-delay="200">
+              Bride & Groom
+            </Title>
+          </TitleContainer>
+          <CardContainer>
+            <ProfileCard image={brideImg} {...profiles[0]} />
+            <ProfileCard image={groomImg} {...profiles[1]} />
+          </CardContainer>
+        </Container>
+      </Element>
+    </div>
   );
-}
+};
 
 export default Profile;
