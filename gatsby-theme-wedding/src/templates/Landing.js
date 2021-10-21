@@ -7,6 +7,8 @@ import Cover from "../components/Cover";
 import Map from "../components/Map";
 import CountdownSection from "../components/CountdownSection";
 import Profile from "../components/Profile";
+import FloatingButton from "../components/FloatingButton";
+import ModalForm from "../components/ModalForm";
 
 import Navigation from "../components/Navigation";
 
@@ -18,6 +20,8 @@ const Landing = () => {
     <Fragment>
       <SEO />
       <Navigation />
+      <FloatingButton />
+      <ModalForm />
       <Layout>
         <Cover />
         <Profile />
