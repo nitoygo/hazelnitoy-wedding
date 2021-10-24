@@ -32,7 +32,7 @@
     "react-tiny-fab": "^4.0.3",
     "sal.js": "^0.6.3",
     "styled-components": "^5.2.3",
-    "styled-react-modal": "^2.1.0"
+    "react-modal": "^3.14.3"
   },
   "repository": {
     "type": "git",

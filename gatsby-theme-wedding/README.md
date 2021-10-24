@@ -73,5 +73,5 @@ This theme makes use of [Yarn Workspaces](https://yarnpkg.com/lang/en/docs/works
 
 ```
 yarn
-yarn workspace example develop
+yarn workspace app develop
 ```

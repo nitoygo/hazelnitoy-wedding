@@ -7,10 +7,9 @@ import Cover from "../components/Cover";
 import Map from "../components/Map";
 import CountdownSection from "../components/CountdownSection";
 import Profile from "../components/Profile";
-import FloatingButton from "../components/FloatingButton";
-import ModalForm from "../components/ModalForm";
 
 import Navigation from "../components/Navigation";
+import RsvpForm from "../components/RsvpForm";
 
 const Landing = () => {
   useEffect(() => {
@@ -20,8 +19,7 @@ const Landing = () => {
     <Fragment>
       <SEO />
       <Navigation />
-      <FloatingButton />
-      <ModalForm />
+      <RsvpForm />
       <Layout>
         <Cover />
         <Profile />
