@@ -12,7 +12,7 @@ const sheet = new GoogleSpreadsheet(googleSheetID);
 async function updateData(body) {
   try {
     let data = {
-      NAME: body.name,
+      "NAME": body.name,
       "CONTACT NUMBER": body.contactNumber,
       "CONFIRMED SEAT": body.count
     };
