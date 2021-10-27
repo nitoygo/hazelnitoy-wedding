@@ -157,11 +157,11 @@ const RsvpForm = () => {
 
     fetch("/.netlify/functions/gsheet_handler", {
       method: "POST",
-      body: {
+      body: JSON.stringify({
         name: guestName,
         contactNumber: contactNum,
         count: count
-      }
+      })
     }).then(response => {
       console.log(JSON.stringify(response));
     });
