@@ -5,6 +5,8 @@ import Modal from "react-modal";
 import FloatingButton from "./FloatingButton";
 import media from "./media";
 
+//import GoogleSpreadsheet from "google-spreadsheet";
+
 Modal.setAppElement("#___gatsby");
 
 const customStyles = {
@@ -105,22 +107,34 @@ const Button = styled.button`
 
 const MAX_GUESTS = 2;
 
-const handleNumberChange = e => {
-  let value = e.target.value;
-  if (!isNaN(parseFloat(value)) && isFinite(value)) {
-    if (value > MAX_GUESTS) {
-      e.target.value = MAX_GUESTS;
-    }
-    if (value < 0) {
-      e.target.value = "";
-    }
-  } else {
-    e.target.value = "";
-  }
-};
-
 const RsvpForm = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [guestName, setGuestName] = useState("");
+  const [contactNum, setContactNum] = useState("");
+  const [count, setCount] = useState(0);
+
+  const changeName = e => {
+    setGuestName(e.target.value);
+  };
+
+  const changeContact = e => {
+    setContactNum(e.target.value);
+  };
+
+  const handleNumberChange = e => {
+    let value = e.target.value;
+    if (!isNaN(parseFloat(value)) && isFinite(value)) {
+      if (value > MAX_GUESTS) {
+        e.target.value = MAX_GUESTS;
+      }
+      if (value < 0) {
+        e.target.value = "";
+      }
+    } else {
+      e.target.value = "";
+    }
+    setCount(e.target.value);
+  };
 
   const toggleModal = e => {
     setIsOpen(!isOpen);
@@ -135,6 +149,23 @@ const RsvpForm = () => {
   };
 
   const beforeClose = () => {};
+
+  const submitForm = () => {
+    console.log("Name: " + guestName);
+    console.log("Contact Number: " + contactNum);
+    console.log("RSVP: " + count);
+
+    fetch("/.netlify/functions/gsheet_handler", {
+      method: "POST",
+      body: {
+        name: guestName,
+        contactNumber: contactNum,
+        count: count
+      }
+    }).then(response => {
+      console.log(JSON.stringify(response));
+    });
+  };
 
   return (
     <div>
@@ -159,8 +190,20 @@ const RsvpForm = () => {
             <P>Alta Veranda de Tibig</P>
             <P>Tibig, Silang (4:30 PM)</P>
             <Line>________________________________________</Line>
-            <Input type="text" placeholder="Name" />
-            <Input type="text" placeholder="Contact Number" />
+            <Input
+              type="text"
+              placeholder="Name"
+              name="guestName"
+              value={guestName}
+              onChange={changeName}
+            />
+            <Input
+              type="text"
+              placeholder="Contact Number"
+              name="contactNum"
+              value={contactNum}
+              onChange={changeContact}
+            />
             <Input
               type="number"
               placeholder="# of Guests"
@@ -170,7 +213,9 @@ const RsvpForm = () => {
             />
           </Details>
           <Buttons>
-            <Button className="accept">Accept</Button>
+            <Button className="accept" onClick={submitForm}>
+              Accept
+            </Button>
             <Button>Regret</Button>
           </Buttons>
         </Form>
