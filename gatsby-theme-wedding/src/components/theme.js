@@ -10,7 +10,7 @@ const theme = Object.freeze({
     light: "#F5F5F5"
   },
   footer: {
-    height: "15rem"
+    height: "24rem"
   }
 });
 

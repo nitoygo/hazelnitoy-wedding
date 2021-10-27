@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
+import media from "./media";
 import logoImg from "../images/icon.png";
 
 const StyledFooter = styled.footer`
@@ -13,11 +14,16 @@ const StyledFooter = styled.footer`
 `;
 
 const Content = styled.div`
-  height: 100%;
+  height: ${props => props.theme.footer.height};
   text-align: center;
   display: flex;
+  margin: 0.5rem;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
+
+  ${media.phone`
+    flex-direction: column;
+  `}
 `;
 
 function Footer() {
