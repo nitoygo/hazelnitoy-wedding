@@ -1,10 +1,20 @@
+// required env vars
+if (!process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL)
+  throw new Error('no GOOGLE_SERVICE_ACCOUNT_EMAIL env var set');
+if (!process.env.GOOGLE_PRIVATE_KEY)
+  throw new Error('no GOOGLE_PRIVATE_KEY env var set');
+if (!process.env.GOOGLE_SPREADSHEET_ID_FROM_URL)
+  // spreadsheet key is the long id in the sheets URL
+  throw new Error('no GOOGLE_SPREADSHEET_ID_FROM_URL env var set');
+
 // Get spreadsheet npm package
 const { GoogleSpreadsheet } = require("google-spreadsheet");
 // Ensure you've updated this file with your client secret
-const clientSecret = require("./client_secret.json");
+// const clientSecret = require("./client_secret.json");
 
 // Add your Google sheet ID here
-const googleSheetID = "1jyrvbrGkFP62SwAPy16zhdylgknMOP1nUDlbpkqgArM";
+//const googleSheetID = "1jyrvbrGkFP62SwAPy16zhdylgknMOP1nUDlbpkqgArM";
+const googleSheetID = process.env.GOOGLE_SPREADSHEET_ID_FROM_URL;
 
 // Instantiates the spreadsheet
 const sheet = new GoogleSpreadsheet(googleSheetID);
@@ -18,7 +28,10 @@ async function updateData(body) {
     };
 
     // Authenticate using the JSON file we set up earlier
-    await sheet.useServiceAccountAuth(clientSecret);
+    await sheet.useServiceAccountAuth({
+      client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
+      private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n')
+    });
     await sheet.loadInfo();
 
     // Get the first tab's data
@@ -54,7 +67,7 @@ async function updateData(body) {
 }
 
 exports.handler = async function(event) {
-  updateData(JSON.parse(event.body));
+  await updateData(JSON.parse(event.body));
 
   return {
     statusCode: 200,
