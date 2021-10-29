@@ -1,10 +1,17 @@
+// required env vars
+if (!process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL)
+  throw new Error("no GOOGLE_SERVICE_ACCOUNT_EMAIL env var set");
+if (!process.env.GOOGLE_PRIVATE_KEY)
+  throw new Error("no GOOGLE_PRIVATE_KEY env var set");
+if (!process.env.GOOGLE_SPREADSHEET_ID_FROM_URL)
+  // spreadsheet key is the long id in the sheets URL
+  throw new Error("no GOOGLE_SPREADSHEET_ID_FROM_URL env var set");
+
 // Get spreadsheet npm package
 const { GoogleSpreadsheet } = require("google-spreadsheet");
-// Ensure you've updated this file with your client secret
-const clientSecret = require("./client_secret.json");
 
-// Google sheet ID here
-const googleSheetID = "1jyrvbrGkFP62SwAPy16zhdylgknMOP1nUDlbpkqgArM";
+// Add your Google sheet ID here
+const googleSheetID = process.env.GOOGLE_SPREADSHEET_ID_FROM_URL;
 
 // Constants for Column Names
 const NAME = "NAME";
