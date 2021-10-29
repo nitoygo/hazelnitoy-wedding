@@ -3,11 +3,136 @@ import styled from "styled-components";
 
 import Modal from "react-modal";
 import FloatingButton from "./FloatingButton";
+import Snackbar from "../components/Snackbar";
+
 import media from "./media";
 
-//import GoogleSpreadsheet from "google-spreadsheet";
-
 Modal.setAppElement("#___gatsby");
+
+const MAX_GUESTS = 2;
+
+const RsvpForm = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [guestName, setGuestName] = useState("");
+  const [contactNumber, setContactNumber] = useState("");
+  const [guestCount, setGuestCount] = useState(0);
+  const [result, setResult] = useState("");
+  const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
+
+  const handleNameChange = e => {
+    setGuestName(e.target.value);
+  };
+
+  const handleContactNumberChange = e => {
+    setContactNumber(e.target.value);
+  };
+
+  const handleGuestCountChange = e => {
+    let value = e.target.value;
+    if (!isNaN(parseFloat(value)) && isFinite(value)) {
+      if (value > MAX_GUESTS) {
+        e.target.value = MAX_GUESTS;
+      }
+      if (value < 0) {
+        e.target.value = "";
+      }
+    } else {
+      e.target.value = "";
+    }
+    setGuestCount(e.target.value);
+  };
+
+  const toggleModal = e => {
+    setIsModalOpen(!isModalOpen);
+  };
+
+  const submitForm = () => {
+    const successMessage = "RSVP Successful! See you!";
+    const errorMessage = "RSVP Failed D: Please contact Nitoy or Hazel.";
+
+    fetch("/.netlify/functions/gsheet_handler", {
+      method: "POST",
+      body: JSON.stringify({
+        name: guestName,
+        contactNumber: contactNumber,
+        count: guestCount
+      })
+    })
+      .then(response => {
+        var result = JSON.parse(response);
+        if (result.statusCode == 200) {
+          setResult(successMessage);
+        } else {
+          setResult(errorMessage);
+        }
+      })
+      .catch(error => {
+        setResult(errorMessage);
+      });
+
+    setIsSnackbarOpen(true);
+    toggleModal();
+  };
+
+  const closeForm = () => {
+    setIsModalOpen(false);
+    setIsSnackbarOpen(false);
+  };
+
+  return (
+    <div>
+      <FloatingButton onClick={toggleModal} />
+      <Snackbar
+        timeout={3000}
+        message={result}
+        show={isSnackbarOpen}
+        setShow={setIsSnackbarOpen}
+      />
+      <Modal isOpen={isModalOpen} style={customStyles}>
+        <Form>
+          <Details>
+            <Header1>RSVP</Header1>
+            <Header2>Hazel & Nitoy's Wedding</Header2>
+            <Header2>December 2, 2021</Header2>
+            <Line>________________________________________</Line>
+            <Header2>Ceremony</Header2>
+            <P>San Antonio de Padua Parish</P>
+            <P>Pooc, Silang (2:00 PM)</P>
+            <Header2>Reception</Header2>
+            <P>Alta Veranda de Tibig</P>
+            <P>Tibig, Silang (4:30 PM)</P>
+            <Line>________________________________________</Line>
+            <Input
+              type="text"
+              placeholder="Name"
+              name="guestName"
+              value={guestName}
+              onChange={handleNameChange}
+            />
+            <Input
+              type="text"
+              placeholder="Contact Number"
+              name="contactNumber"
+              value={contactNumber}
+              onChange={handleContactNumberChange}
+            />
+            <Input
+              type="number"
+              placeholder="# of Guests"
+              min="1"
+              max="10"
+              onChange={handleGuestCountChange}
+            />
+          </Details>
+          <Buttons>
+            <Button onClick={submitForm}>Accept</Button>
+            <Button onClick={closeForm}>Regret</Button>
+          </Buttons>
+        </Form>
+      </Modal>
+    </div>
+  );
+};
 
 const customStyles = {
   overlay: {
@@ -104,124 +229,5 @@ const Button = styled.button`
     width: 50%;
   `}
 `;
-
-const MAX_GUESTS = 2;
-
-const RsvpForm = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [guestName, setGuestName] = useState("");
-  const [contactNum, setContactNum] = useState("");
-  const [count, setCount] = useState(0);
-
-  const changeName = e => {
-    setGuestName(e.target.value);
-  };
-
-  const changeContact = e => {
-    setContactNum(e.target.value);
-  };
-
-  const handleNumberChange = e => {
-    let value = e.target.value;
-    if (!isNaN(parseFloat(value)) && isFinite(value)) {
-      if (value > MAX_GUESTS) {
-        e.target.value = MAX_GUESTS;
-      }
-      if (value < 0) {
-        e.target.value = "";
-      }
-    } else {
-      e.target.value = "";
-    }
-    setCount(e.target.value);
-  };
-
-  const toggleModal = e => {
-    setIsOpen(!isOpen);
-  };
-
-  const afterOpen = () => {
-    console.log(isOpen);
-  };
-
-  const afterClose = () => {
-    console.log(isOpen);
-  };
-
-  const beforeClose = () => {};
-
-  const submitForm = () => {
-    console.log("Name: " + guestName);
-    console.log("Contact Number: " + contactNum);
-    console.log("RSVP: " + count);
-
-    fetch("/.netlify/functions/gsheet_handler", {
-      method: "POST",
-      body: JSON.stringify({
-        name: guestName,
-        contactNumber: contactNum,
-        count: count
-      })
-    }).then(response => {
-      console.log(JSON.stringify(response));
-    });
-  };
-
-  return (
-    <div>
-      <FloatingButton onClick={toggleModal} />
-      <Modal
-        isOpen={isOpen}
-        onAfterOpen={afterOpen}
-        onAfterClose={afterClose}
-        onRequestClose={beforeClose}
-        style={customStyles}
-      >
-        <Form>
-          <Details>
-            <Header1>RSVP</Header1>
-            <Header2>Hazel & Nitoy's Wedding</Header2>
-            <Header2>December 2, 2021</Header2>
-            <Line>________________________________________</Line>
-            <Header2>Ceremony</Header2>
-            <P>San Antonio de Padua Parish</P>
-            <P>Pooc, Silang (2:00 PM)</P>
-            <Header2>Reception</Header2>
-            <P>Alta Veranda de Tibig</P>
-            <P>Tibig, Silang (4:30 PM)</P>
-            <Line>________________________________________</Line>
-            <Input
-              type="text"
-              placeholder="Name"
-              name="guestName"
-              value={guestName}
-              onChange={changeName}
-            />
-            <Input
-              type="text"
-              placeholder="Contact Number"
-              name="contactNum"
-              value={contactNum}
-              onChange={changeContact}
-            />
-            <Input
-              type="number"
-              placeholder="# of Guests"
-              min="1"
-              max="10"
-              onChange={handleNumberChange}
-            />
-          </Details>
-          <Buttons>
-            <Button className="accept" onClick={submitForm}>
-              Accept
-            </Button>
-            <Button>Regret</Button>
-          </Buttons>
-        </Form>
-      </Modal>
-    </div>
-  );
-};
 
 export default RsvpForm;

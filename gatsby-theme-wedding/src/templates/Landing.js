@@ -19,13 +19,13 @@ const Landing = () => {
     <Fragment>
       <SEO />
       <Navigation />
-      <RsvpForm />
       <Layout>
         <Cover />
         <Profile />
         <CountdownSection />
         <Map />
       </Layout>
+      <RsvpForm />
     </Fragment>
   );
 };

@@ -15,60 +15,62 @@ const CONFIRMED_SEAT = "CONFIRMED SEAT";
 const doc = new GoogleSpreadsheet(googleSheetID);
 
 async function updateData(body) {
-  try {
-    let data = {
-      [NAME]: body.name,
-      [CONTACT_NUMBER]: body.contactNumber,
-      [CONFIRMED_SEAT]: body.count
-    };
+  let data = {
+    [NAME]: body.name,
+    [CONTACT_NUMBER]: body.contactNumber,
+    [CONFIRMED_SEAT]: body.count
+  };
 
-    // Authenticate using the JSON file we set up earlier
-    await doc.useServiceAccountAuth(clientSecret);
-    await doc.loadInfo();
+  // Authenticate using the JSON file we set up earlier
+  await doc.useServiceAccountAuth(clientSecret);
+  await doc.loadInfo();
 
-    // Get the first sheet
-    const sheet = doc.sheetsByIndex[0];
-    console.info(sheet.title);
-    console.info(sheet.rowCount);
+  // Get the first sheet
+  const sheet = doc.sheetsByIndex[0];
+  console.info(sheet.title);
+  console.info(sheet.rowCount);
 
-    // Get row data
-    const rows = await sheet.getRows();
+  // Get row data
+  const rows = await sheet.getRows();
 
-    // If we have data
-    if (rows.length > 0) {
-      var matchedRow = rows.find(row => {
-        return row[NAME] == data[NAME];
+  // If we have data
+  if (rows.length > 0) {
+    var matchedRow = rows.find(row => {
+      return row[NAME] == data[NAME];
+    });
+
+    if (matchedRow) {
+      // if found match, update existing row
+      matchedRow[CONTACT_NUMBER] = data[CONTACT_NUMBER];
+      matchedRow[CONFIRMED_SEAT] = data[CONFIRMED_SEAT];
+
+      await matchedRow.save();
+    } else {
+      // if none match, add new row
+      var addedRow = await sheet.addRow({
+        [NAME]: data[NAME],
+        [CONTACT_NUMBER]: data[CONTACT_NUMBER],
+        [CONFIRMED_SEAT]: data[CONFIRMED_SEAT]
       });
 
-      if (matchedRow) {
-        // if found match, update existing row
-        matchedRow[CONTACT_NUMBER] = data[CONTACT_NUMBER];
-        matchedRow[CONFIRMED_SEAT] = data[CONFIRMED_SEAT];
-
-        await matchedRow.save();
-      } else {
-        // if none match, add new row
-        var addedRow = await sheet.addRow({
-          [NAME]: data[NAME],
-          [CONTACT_NUMBER]: data[CONTACT_NUMBER],
-          [CONFIRMED_SEAT]: data[CONFIRMED_SEAT]
-        });
-
-        await addedRow.save();
-      }
-    } else {
-      console.warn("[WARNING!] Google Spreadsheet is empty.");
+      await addedRow.save();
     }
-  } catch (err) {
-    console.error(err);
   }
 }
 
 exports.handler = async function(event) {
-  updateData(JSON.parse(event.body));
+  var statusCode;
+
+  try {
+    updateData(JSON.parse(event.body));
+    statusCode = 200;
+  } catch (e) {
+    console.error(e);
+    statusCode = 500;
+  }
 
   return {
-    statusCode: 200,
+    statusCode: statusCode,
     body: JSON.stringify(event.body)
   };
 };
