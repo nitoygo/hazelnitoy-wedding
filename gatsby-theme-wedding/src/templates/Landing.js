@@ -11,6 +11,10 @@ import Profile from "../components/Profile";
 import Navigation from "../components/Navigation";
 import RsvpForm from "../components/RsvpForm";
 
+import Attire from "../components/Attire";
+import Gifts from "../components/Gifts";
+import CovidGuidelines from "../components/CovidGuidelines";
+
 const Landing = () => {
   useEffect(() => {
     sal();
@@ -24,6 +28,9 @@ const Landing = () => {
         <Profile />
         <CountdownSection />
         <Map />
+        <CovidGuidelines />
+        <Attire />
+        <Gifts />
       </Layout>
       <RsvpForm />
     </Fragment>

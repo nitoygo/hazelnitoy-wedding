@@ -2,7 +2,7 @@ import { createGlobalStyle } from "styled-components";
 import "sal.js/dist/sal.css";
 
 const GlobalStyles = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css?family=Great+Vibes|Montserrat&display=swap');
+  @import url('https://fonts.googleapis.com/css?family=Great+Vibes|Montserrat|Dancing+Script&display=swap');
   html {
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
