@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 import Modal from "react-modal";
@@ -47,6 +47,7 @@ const RsvpForm = () => {
   };
 
   const submitForm = () => {
+    const loadingMessage = "Saving you a seat...";
     const successMessage = "RSVP Successful! See you!";
     const errorMessage = "RSVP Failed D: Please contact Nitoy or Hazel.";
 
@@ -59,16 +60,19 @@ const RsvpForm = () => {
       })
     })
       .then(response => {
-        var result = JSON.parse(response);
-        if (result.statusCode == 200) {
-          setResult(successMessage);
-        } else {
-          setResult(errorMessage);
-        }
+        response.json();
+      })
+      .then(data => {
+        setResult(successMessage);
+        setIsSnackbarOpen(true);
       })
       .catch(error => {
         setResult(errorMessage);
+        setIsSnackbarOpen(true);
       });
+
+    setResult(loadingMessage);
+    setIsSnackbarOpen(true);
 
     toggleModal();
   };
@@ -78,15 +82,11 @@ const RsvpForm = () => {
     setIsSnackbarOpen(false);
   };
 
-  useEffect(() => {
-    setIsSnackbarOpen(true);
-  }, [result]);
-
   return (
     <div>
       <FloatingButton onClick={toggleModal} />
       <Snackbar
-        timeout={3000}
+        timeout={2000}
         message={result}
         show={isSnackbarOpen}
         setShow={setIsSnackbarOpen}

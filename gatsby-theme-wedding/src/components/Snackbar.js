@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import styled, { keyframes } from "styled-components";
-import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
+import { faWindowClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Snackbar = ({ timeout, message, show, setShow }) => {
@@ -35,9 +35,6 @@ const Snackbar = ({ timeout, message, show, setShow }) => {
     SHOW && (
       <Container time={TIME}>
         <p>{MESSAGE}</p>
-        <Button onClick={handleClose}>
-          <FontAwesomeIcon icon={faExclamationCircle} />
-        </Button>
       </Container>
     )
   );
