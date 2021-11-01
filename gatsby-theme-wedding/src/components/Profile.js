@@ -21,7 +21,7 @@ const TitleContainer = styled.header`
 
 const Title = styled.h2`
   font-weight: 400;
-  font-size: 3.5rem;
+  font-size: 3.25rem;
   margin-top: 1rem;
 `;
 

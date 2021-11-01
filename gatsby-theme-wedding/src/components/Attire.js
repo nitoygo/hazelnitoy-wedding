@@ -8,7 +8,7 @@ import animationParams from "./animation-params";
 import attireImg from "../images/Attire.webp";
 
 const TextContainer = styled.div`
-  padding: 5rem 2rem;
+  padding: 2rem 2rem;
   text-align: center;
 `;
 
@@ -18,28 +18,20 @@ const Heading = styled.h2`
 `;
 
 const Subtitle = styled.sub`
-  font-weight: 600;
   font-size: 1rem;
   font-family: 'Dancing Script', cursive;
 `;
 
 const AttireCard = styled.div`
-    margin: 2rem;
-    width: 100%;
-    display: flex;    
-    flex-direction: column;
-    align-items: center;
-
-    ${media.phone`
-        width: 90%;
-    `}
+  display: flex;    
+  flex-direction: column;
+  align-items: center;
 `;
 
 const Image = styled.img`
   object-fit: cover;
   width: 30rem;
   height: 30rem;
-  margin: 0 auto;
   display: block;
   
   ${media.phone`
@@ -49,23 +41,24 @@ const Image = styled.img`
 `;
 
 const Attire = () => {
-    return(
-        <div>
-            <Element id="Attire">
-                <TextContainer>
-                    <Heading {...animationParams}>Dress Code</Heading>
-                    <AttireCard>
-                        <Image src={attireImg} alt="" />
-                        <Subtitle>
-                            <br/>
-                            Ladies: Semi-Formal or Cocktail dress<br/>
-                            Gentlemen: Barong or Semi-Formal
-                        </Subtitle>
-                    </AttireCard>
-                </TextContainer>
-            </Element>
-        </div>
-    );
+  return(
+    <div>
+      <Element id="Attire">
+        <TextContainer>
+          <Heading {...animationParams}>Dress Code</Heading>
+          <AttireCard>
+            <Image src={attireImg} alt="" />
+            <Subtitle>
+              <br/>
+              Theme: Rustic / Modern Filipiniana<br/><br/>
+              Ladies: Semi-Formal or Cocktail dress<br/>
+              Gentlemen: Barong or Semi-Formal
+            </Subtitle>
+          </AttireCard>
+        </TextContainer>
+      </Element>
+    </div>
+  );
 };
 
 export default Attire;

@@ -19,10 +19,10 @@ const NavLinksWrapper = styled.ul`
 `;
 
 const pages = [
-  { id: "Cover", alias: "Cover" },
+  { id: "Cover", alias: "Top" },
   { id: "Profile", alias: "About Us" },
-  { id: "CountdownSection", alias: "Countdown" },
-  { id: "Map", alias: "Venue" }
+  { id: "CountdownSection", alias: "Event" },
+  { id: "CovidGuidelines", alias: "Reminders" }
 ];
 
 const NavBarLink = ({ id, alias }) => {

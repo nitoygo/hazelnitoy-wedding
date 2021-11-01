@@ -5,7 +5,7 @@ import { Element } from "react-scroll";
 import animationParams from "./animation-params";
 
 const TextContainer = styled.div`
-  padding: 5rem 2rem;
+  padding: 2rem 1rem;
   text-align: center;
 `;
 
@@ -15,30 +15,28 @@ const Heading = styled.h2`
 `;
 
 const P = styled.p`
-    text-align: center;
-    font-weight: 100;
-    font-size: 1.25rem;
-    font-family: 'Dancing Script', cursive;
+  text-align: center;
+  font-weight: 100;
+  font-size: 1rem;
+  font-family: 'Dancing Script', cursive;
 `;
 
 const Gifts = () => {
-    return(
-    <div>
-        <Element id="Gifts">
-            <TextContainer>
-                <Heading {...animationParams}>Gifts</Heading>
-                <P>
-                    If a gift registry is what you're looking for<br/>
-                    Rest assured, your attendance means so much more.<br/>
-                    But for those who'd like to help our brand new start,<br/>
-                    There's no need to shop nor add to cart.<br/>
-                    Adding any amount to our savings pot will suffice.<br/>
-                    That's all, thanks guys!
-                </P>
-            </TextContainer>
-        </Element>
-    </div>
-    );
+  return(
+  <div>
+    <Element id="Gifts">
+      <TextContainer>
+        <Heading {...animationParams}>Gifts</Heading>
+        <P>
+          If a gift registry is what you're looking for<br/>
+          Rest assured, your attendance means so much more<br/>
+          For those who believe that a present is worth giving<br/>
+          A saving for our future is a delightful blessing
+        </P>
+      </TextContainer>
+    </Element>
+  </div>
+  );
 };
 
 export default Gifts;

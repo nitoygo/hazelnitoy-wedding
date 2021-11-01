@@ -91,17 +91,17 @@ const RsvpForm = () => {
       <Modal isOpen={isModalOpen} style={customStyles}>
         <Form>
           <Details>
+            <HR />
             <Header1>RSVP</Header1>
-            <Header2>Hazel & Nitoy's Wedding</Header2>
-            <Header2>December 2, 2021</Header2>
-            <Line>________________________________________</Line>
-            <Header2>Ceremony</Header2>
-            <P>San Antonio de Padua Parish</P>
-            <P>Pooc, Silang (2:00 PM)</P>
-            <Header2>Reception</Header2>
-            <P>Alta Veranda de Tibig</P>
-            <P>Tibig, Silang (4:30 PM)</P>
-            <Line>________________________________________</Line>
+            <HR />
+            <P>
+              We'll be honored to have you!'
+            </P>
+            <P>
+              Please confirm your attendance
+              On or before November 15, 2021
+            </P>
+            <HR />
             <Input
               type="text"
               placeholder="Name"
@@ -128,6 +128,7 @@ const RsvpForm = () => {
             <Button onClick={submitForm}>Accept</Button>
             <Button onClick={closeForm}>Regret</Button>
           </Buttons>
+          <HR />
         </Form>
       </Modal>
     </div>
@@ -167,28 +168,22 @@ const Buttons = styled.div`
   width: 100%;
 `;
 
-const Line = styled.p`
-  margin: 0px auto 20px auto;
-  text-align: center;
-  color: #999;
-`;
-
 const Header1 = styled.h1`
   text-align: center;
   padding: 0px;
   margin: 5px 5px;
 `;
 
-const Header2 = styled.h2`
+const P = styled.p`
+  font-size: 1.25rem;
+  font-family: 'Dancing Script', cursive;
   text-align: center;
   padding: 0px;
   margin: 5px 5px;
 `;
 
-const P = styled.p`
-  text-align: center;
-  padding: 0px;
-  margin: 5px 5px;
+const HR = styled.hr`
+  width: 90%;
 `;
 
 const Input = styled.input`
