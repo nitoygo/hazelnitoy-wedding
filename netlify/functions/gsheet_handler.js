@@ -1,3 +1,12 @@
+/*
+ * prerequisites
+ */
+if (!process.env.NETLIFY) {
+  // get local env vars if not in CI
+  // if in CI i expect its already set via the Netlify UI
+  require("dotenv").config();
+}
+
 // required env vars
 if (!process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL)
   throw new Error("no GOOGLE_SERVICE_ACCOUNT_EMAIL env var set");
@@ -31,7 +40,7 @@ async function updateData(body) {
   // Authenticate using the JSON file we set up earlier
   await doc.useServiceAccountAuth({
     client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
-    private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n')
+    private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, "\n")
   });
   await doc.loadInfo();
 
@@ -72,7 +81,7 @@ exports.handler = async function(event) {
   var statusCode;
 
   try {
-    updateData(JSON.parse(event.body));
+    await updateData(JSON.parse(event.body));
     statusCode = 200;
   } catch (e) {
     console.error(e);

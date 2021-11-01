@@ -91,17 +91,11 @@ const RsvpForm = () => {
       <Modal isOpen={isModalOpen} style={customStyles}>
         <Form>
           <Details>
-            <HR />
             <Header1>RSVP</Header1>
-            <HR />
-            <P>
-              We'll be honored to have you!'
-            </P>
-            <P>
-              Please confirm your attendance
-              On or before November 15, 2021
-            </P>
-            <HR />
+            <Line>_____________________________________</Line>
+            <P>We'll be honored to have you!'</P>
+            <P>Please confirm your attendance On or before November 15, 2021</P>
+            <Line>_____________________________________</Line>
             <Input
               type="text"
               placeholder="Name"
@@ -128,7 +122,6 @@ const RsvpForm = () => {
             <Button onClick={submitForm}>Accept</Button>
             <Button onClick={closeForm}>Regret</Button>
           </Buttons>
-          <HR />
         </Form>
       </Modal>
     </div>
@@ -171,19 +164,21 @@ const Buttons = styled.div`
 const Header1 = styled.h1`
   text-align: center;
   padding: 0px;
-  margin: 5px 5px;
+  margin: 2rem;
 `;
 
 const P = styled.p`
   font-size: 1.25rem;
-  font-family: 'Dancing Script', cursive;
+  font-family: "Dancing Script", cursive;
   text-align: center;
   padding: 0px;
   margin: 5px 5px;
 `;
 
-const HR = styled.hr`
-  width: 90%;
+const Line = styled.p`
+  margin: 0px auto 20px auto;
+  text-align: center;
+  color: #999;
 `;
 
 const Input = styled.input`
