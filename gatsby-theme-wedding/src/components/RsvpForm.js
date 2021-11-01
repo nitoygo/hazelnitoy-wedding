@@ -70,7 +70,6 @@ const RsvpForm = () => {
         setResult(errorMessage);
       });
 
-    setIsSnackbarOpen(true);
     toggleModal();
   };
 
@@ -78,6 +77,10 @@ const RsvpForm = () => {
     setIsModalOpen(false);
     setIsSnackbarOpen(false);
   };
+
+  useEffect(() => {
+    setIsSnackbarOpen(true);
+  }, [result]);
 
   return (
     <div>
