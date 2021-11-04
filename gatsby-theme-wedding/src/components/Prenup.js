@@ -20,13 +20,16 @@ const IFrame = styled.iframe`
   `}
 `;
 
-
 const Prenup = () => {
   return(
   <div>
     <Element id="Prenup">
       <Video>
-        <IFrame src="https://drive.google.com/file/d/16bIVj6hJXQ4uL0FV8NKR86OCW90uNAe6/preview" allow="autoplay"></IFrame>
+        <IFrame 
+          src="https://drive.google.com/file/d/16bIVj6hJXQ4uL0FV8NKR86OCW90uNAe6/preview" 
+          allow="autoplay" 
+          allowFullScreen
+          />
       </Video>
     </Element>
   </div>
