@@ -2,6 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import { Element } from "react-scroll";
 
+import logoImg from "../images/icon.png";
+import media from "./media";
+
 import animationParams from "./animation-params";
 
 const TextContainer = styled.div`
@@ -21,6 +24,19 @@ const P = styled.p`
   font-family: 'Dancing Script', cursive;
 `;
 
+const Monogram = styled.div`
+  padding: 120px;
+  text-align: center;
+  display: flex;
+  margin: 0.5rem;
+  align-items: center;
+  justify-content: space-around;
+
+  ${media.phone`
+    flex-direction: column;
+  `}
+`;
+
 const Gifts = () => {
   return(
   <div>
@@ -34,6 +50,9 @@ const Gifts = () => {
           A saving for our future is a delightful blessing
         </P>
       </TextContainer>
+      <Monogram>
+        <img src={logoImg} height="120px" />
+      </Monogram>
     </Element>
   </div>
   );
