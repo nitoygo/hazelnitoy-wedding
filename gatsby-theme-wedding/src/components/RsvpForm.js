@@ -10,17 +10,28 @@ import media from "./media";
 Modal.setAppElement("#___gatsby");
 
 const MAX_GUESTS = 2;
+const NAME_MISSING_MSG = "Please enter your name";
+const COUNT_MISSING_MSG = "Please enter guest count";
+const REGRET_MSG = "We understand. Keep safe and God bless!";
+const SUBMIT_MSG = "Saving you a seat...";
+const SUCCESS_MSG = "RSVP Successful! See you!";
+const ERROR_MSG = "RSVP Failed D: Please contact Nitoy or Hazel.";
 
 const RsvpForm = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [guestName, setGuestName] = useState("");
   const [contactNumber, setContactNumber] = useState("");
   const [guestCount, setGuestCount] = useState(0);
+  const [remarks, setRemarks] = useState("");
   const [result, setResult] = useState("");
   const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
 
   const handleNameChange = e => {
     setGuestName(e.target.value);
+  };
+
+  const handleRemarksChange = e => {
+    setRemarks(e.target.value);
   };
 
   const handleContactNumberChange = e => {
@@ -46,52 +57,89 @@ const RsvpForm = () => {
     setIsModalOpen(!isModalOpen);
   };
 
-  const submitForm = () => {
-    const loadingMessage = "Saving you a seat...";
-    const successMessage = "RSVP Successful! See you!";
-    const errorMessage = "RSVP Failed D: Please contact Nitoy or Hazel.";
+  const submitAccept = () => {
+    if (!guestName) {
+      setResult(NAME_MISSING_MSG);
+      setIsSnackbarOpen(true);
+      return;
+    }
+    if (!guestCount) {
+      setResult(COUNT_MISSING_MSG);
+      setIsSnackbarOpen(true);
+      return;
+    }
 
     fetch("/.netlify/functions/gsheet_handler", {
       method: "POST",
       body: JSON.stringify({
         name: guestName,
         contactNumber: contactNumber,
-        count: guestCount
+        count: guestCount,
+        remarks: remarks
       })
     })
       .then(response => {
+        if (!response.ok) {
+          throw new Error("Error with submit request to backend");
+        }
         response.json();
       })
       .then(data => {
-        setResult(successMessage);
+        setResult(SUCCESS_MSG);
         setIsSnackbarOpen(true);
       })
       .catch(error => {
-        setResult(errorMessage);
+        setResult(ERROR_MSG);
         setIsSnackbarOpen(true);
       });
 
-    setResult(loadingMessage);
+    setResult(SUBMIT_MSG);
     setIsSnackbarOpen(true);
 
-    toggleModal();
+    closeForm();
+  };
+
+  const submitRegret = () => {
+    if (!guestName) {
+      setResult(NAME_MISSING_MSG);
+      setIsSnackbarOpen(true);
+      return;
+    }
+
+    fetch("/.netlify/functions/gsheet_handler", {
+      method: "POST",
+      body: JSON.stringify({
+        name: guestName,
+        contactNumber: contactNumber,
+        count: 0,
+        remarks: remarks
+      })
+    });
+
+    setResult(REGRET_MSG);
+    setIsSnackbarOpen(true);
+    closeForm();
   };
 
   const closeForm = () => {
+    setGuestCount(0);
     setIsModalOpen(false);
-    setIsSnackbarOpen(false);
   };
 
   return (
     <div>
       <FloatingButton onClick={toggleModal} />
       <Snackbar
-        timeout={2000}
+        timeout={2500}
         message={result}
         show={isSnackbarOpen}
         setShow={setIsSnackbarOpen}
       />
-      <Modal isOpen={isModalOpen} style={customStyles}>
+      <Modal
+        isOpen={isModalOpen}
+        style={customStyles}
+        onRequestClose={closeForm}
+      >
         <Form>
           <Details>
             <Header1>RSVP</Header1>
@@ -120,10 +168,16 @@ const RsvpForm = () => {
               max="10"
               onChange={handleGuestCountChange}
             />
+            <MultiLineInput
+              type="text"
+              placeholder="e.g. Ceremony only, or any message"
+              rows="2"
+              onChange={handleRemarksChange}
+            />
           </Details>
           <Buttons>
-            <Button onClick={submitForm}>Accept</Button>
-            <Button onClick={closeForm}>Regret</Button>
+            <Button onClick={submitAccept}>Accept</Button>
+            <Button onClick={submitRegret}>Regret</Button>
           </Buttons>
         </Form>
       </Modal>
@@ -167,7 +221,7 @@ const Buttons = styled.div`
 const Header1 = styled.h1`
   text-align: center;
   padding: 0px;
-  margin: 2rem;
+  margin: 1.5rem;
 `;
 
 const P = styled.p`
@@ -186,11 +240,27 @@ const Line = styled.p`
 
 const Input = styled.input`
   font-size: 15px;
+  font-family: "Montserrat", sans-serif;
   color: #666;
   padding: 6px;
   margin: 25px auto 20px;
   display: block;
   width: 50%;
+
+  ${media.phone`
+    width: 75%;
+  `}
+`;
+
+const MultiLineInput = styled.textarea`
+  font-size: 15px;
+  font-family: "Montserrat", sans-serif;
+  color: #666;
+  padding: 6px;
+  margin: 25px auto 20px;
+  display: block;
+  width: 50%;
+  resize: none;
 
   ${media.phone`
     width: 75%;

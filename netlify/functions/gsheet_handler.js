@@ -26,6 +26,7 @@ const googleSheetID = process.env.GOOGLE_SPREADSHEET_ID_FROM_URL;
 const NAME = "NAME";
 const CONTACT_NUMBER = "CONTACT NUMBER";
 const CONFIRMED_SEAT = "CONFIRMED SEAT";
+const REMARKS = "REMARKS";
 
 // Instantiates the spreadsheet document
 const doc = new GoogleSpreadsheet(googleSheetID);
@@ -34,7 +35,8 @@ async function updateData(body) {
   let data = {
     [NAME]: body.name,
     [CONTACT_NUMBER]: body.contactNumber,
-    [CONFIRMED_SEAT]: body.count
+    [CONFIRMED_SEAT]: body.count,
+    [REMARKS]: body.remarks
   };
 
   // Authenticate using the JSON file we set up earlier
@@ -64,12 +66,14 @@ async function updateData(body) {
       matchedRow[CONFIRMED_SEAT] = data[CONFIRMED_SEAT];
 
       await matchedRow.save();
+      
     } else {
       // if none match, add new row
       var addedRow = await sheet.addRow({
         [NAME]: data[NAME],
         [CONTACT_NUMBER]: data[CONTACT_NUMBER],
-        [CONFIRMED_SEAT]: data[CONFIRMED_SEAT]
+        [CONFIRMED_SEAT]: data[CONFIRMED_SEAT],
+        [REMARKS]: data[REMARKS]
       });
 
       await addedRow.save();

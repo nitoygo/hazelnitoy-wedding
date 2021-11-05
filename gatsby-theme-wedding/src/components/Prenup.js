@@ -28,8 +28,8 @@ const Prenup = () => {
         <IFrame 
           src="https://drive.google.com/file/d/16bIVj6hJXQ4uL0FV8NKR86OCW90uNAe6/preview" 
           allow="autoplay" 
-          allowFullScreen
-          />
+          allowFullScreen mozAllowFullScreen webkitAllowFullScreen oAllowFullscreen
+        />
       </Video>
     </Element>
   </div>

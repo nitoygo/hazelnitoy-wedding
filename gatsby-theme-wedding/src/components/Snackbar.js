@@ -1,7 +1,5 @@
 import React, { useEffect } from "react";
 import styled, { keyframes } from "styled-components";
-import { faWindowClose } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Snackbar = ({ timeout, message, show, setShow }) => {
   var SHOW = show;
@@ -11,16 +9,11 @@ const Snackbar = ({ timeout, message, show, setShow }) => {
   let TIME = (timeout - 500) / 1000 + "s";
 
   let TIMER;
-  function handleTimeout() {
+  const handleTimeout = () => {
     TIMER = setTimeout(() => {
       setShow(false);
     }, timeout);
-  }
-
-  function handleClose() {
-    clearTimeout(TIMER);
-    setShow(false);
-  }
+  };
 
   useEffect(() => {
     if (SHOW) {
@@ -64,7 +57,7 @@ const fadeout = keyframes`
 
 const Container = styled.div`
   position: fixed;
-  z-index: 1000;
+  z-index: 1100;
   bottom: 1rem;
   left: 50%;
   transform: translateX(-50%);
@@ -81,27 +74,6 @@ const Container = styled.div`
   align-items: center;
 
   animation: ${fadein} 0.5s, ${fadeout} 0.5s ${props => props.time};
-`;
-
-const Button = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-left: 0.875rem;
-  padding: 0;
-  margin-left: 1rem;
-  height: 1.75rem;
-  width: 1.75rem;
-  text-align: center;
-  border: none;
-  border-radius: 50%;
-  background-color: transparent;
-  color: white;
-  cursor: pointer;
-
-  &:hover {
-    background-color: hsl(200, 100%, 60%);
-  }
 `;
 
 export default Snackbar;
